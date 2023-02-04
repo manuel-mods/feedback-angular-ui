@@ -1,0 +1,70 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div
+          class="header text-white"
+          style="background-color: aqua; background-image: url(https://picsum.photos/600/200)"
+        >
+          <h1 style="text-shadow: 5px solid black">Perfil de Usuario</h1>
+        </div>
+        <div class="user-info d-flex">
+          <img
+            src="https://picsum.photos/200"
+            class="rounded-circle mr-3"
+            alt="Perfil"
+            style="height: 200px; width: 200px; background-color: aqua"
+          />
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12">
+              <h2 class="mb-0">Jose Peréz</h2>
+              <div class=""><span class="fi fi-cl"></span> Temuco, Chile</div>
+              <div class="">
+                <ul class="uns-list">
+                  <li class="list-group-item">@nombreUsuario</li>
+                  <li class="list-group-item">prueba@correo.cl</li>
+                  <li class="list-group-item">
+                    Feedbacks <span class="badge bg-primary">{{ feedbacks_counts }} </span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="comments mt-3">
+        <h3>Feedbacks</h3>
+        <div class="row">
+          <ng-container *ngFor="let feedback of feedbacks">
+            <div class="col-4">
+              <div class="card">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col d-flex flex-column justify-content-center align-items-center">
+                      <img src="https://via.placeholder.com/200" class="card-img-top mr-3" alt="Profile Image" />
+                      <a href="#" class="btn btn-primary mt-2" style="width: 100px">Ver perfil</a>
+                    </div>
+                    <div class="col-8 d-flex flex-column justify-content-center align-items-center">
+                      <p class="card-text text-center fw-semibold mb-0">@nombredeusuario:</p>
+                      <p class="card-text text-center">El servicio de atención al cliente es excelente!</p>
+                      <span class="d-block fs-15">🌟🌟🌟🌟</span>
+                    </div>
+
+                    <div class="footer-date">
+                      <small>2/2/2023, 12:00 PM</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
