@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "feedbapp-cl": {
+      "hosting": {
+        "feedbapp-ui": [
+          "feedbapp-cl"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "feedbapp-cl"
+  }
+}

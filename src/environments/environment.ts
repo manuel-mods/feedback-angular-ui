@@ -11,6 +11,15 @@
 import { env } from './.env';
 
 export const environment = {
+  firebase: {
+    projectId: 'feedbapp-cl',
+    appId: '1:338386821517:web:1a8d83d50edce40fb4ddc4',
+    storageBucket: 'feedbapp-cl.appspot.com',
+    apiKey: 'AIzaSyAv79dtKyI4Glaj7O4OQBbLUHmYA5bsZRU',
+    authDomain: 'feedbapp-cl.firebaseapp.com',
+    messagingSenderId: '338386821517',
+    measurementId: 'G-F2DVZ9NF2X',
+  },
   production: false,
   version: env['npm_package_version'] + '-dev',
   serverUrl: '/api',

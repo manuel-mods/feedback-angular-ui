@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { ClipboardService } from 'ngx-clipboard';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-profile',
@@ -8,6 +11,19 @@ import { Component, OnInit } from '@angular/core';
 export class ProfileComponent implements OnInit {
   feedbacks_counts = 20;
   nombre = 'Juan Pérez';
+  feedbackTags = [
+    'Claridad',
+    'Rapidez de respuesta',
+    'Conocimiento del producto',
+    'Calidad del servicio',
+    'Tiempo de envío',
+    'Relación calidad-precio',
+    'Satisfacción general',
+    'Servicio al cliente',
+    'Disponibilidad del producto',
+    'Condición del producto',
+    'Soporte post-venta',
+  ];
   edad = 32;
   ubicacion = 'Madrid, España';
   feedbacks = [
@@ -36,7 +52,63 @@ export class ProfileComponent implements OnInit {
       text: 'This profile is simply amazing. I am impressed!',
     },
   ];
-  constructor() {}
+
+  feedbacksTable = [
+    { id: 1, type: 'Venta', status: 'Completo', tools: '-' },
+    { id: 2, type: 'Asesoría', status: 'Pendiente', tools: '-' },
+    { id: 3, type: 'Servicio', status: 'Completo', tools: '-' },
+  ];
+  constructor(
+    private modalService: NgbModal,
+    private spinner: NgxSpinnerService,
+    private clipboardService: ClipboardService
+  ) {}
+
+  @ViewChild('modalContent')
+  private content: TemplateRef<any> | undefined;
+
+  @ViewChild('modalContent2')
+  private content2: TemplateRef<any> | undefined;
+
+  @ViewChild('modalContent3')
+  private content3: TemplateRef<any> | undefined;
 
   ngOnInit(): void {}
+  ngbModalOptions: NgbModalOptions = {
+    backdrop: 'static',
+    keyboard: false,
+  };
+  openModal() {
+    this.modalService.open(this.content, this.ngbModalOptions);
+  }
+  openModal2() {
+    this.modalService.open(this.content2, this.ngbModalOptions);
+  }
+  openModal3() {
+    this.modalService.open(this.content3, this.ngbModalOptions);
+  }
+  urlGenerate = '';
+  urlLoad = false;
+  urlDone = false;
+  async generateLink() {
+    this.urlLoad = true;
+    this.spinner.show();
+    await this.delay(2000);
+    this.spinner.hide();
+    // url shorten example
+    const url = 'https://feedb.app/123e4567-e89b-12d3-a456-426614174000';
+    this.urlGenerate = url;
+    this.urlDone = true;
+  }
+
+  deleteFeedback(id: number) {
+    this.feedbacksTable = this.feedbacksTable.filter((feedback) => feedback.id !== id);
+  }
+
+  delay(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+  copyToClipboard() {
+    this.clipboardService.copyFromContent(this.urlGenerate);
+  }
 }

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '@app/@shared/services/auth.service';
 import { finalize } from 'rxjs/operators';
 
-import { QuoteService } from './quote.service';
+declare var Masonry: any;
 
 @Component({
   selector: 'app-home',
@@ -11,20 +12,30 @@ import { QuoteService } from './quote.service';
 export class HomeComponent implements OnInit {
   quote: string | undefined;
   isLoading = false;
-
-  constructor(private quoteService: QuoteService) {}
+  username = 'Usuario'; // Deberías obtener esto desde tu servicio de autenticación
+  feedbacks = [
+    { serviceType: 'Servicio 1', name: 'Feedback 1', description: 'Descripción 1', rating: 3, comment: 'Comentario 1' },
+    // Más feedbacks aquí...
+  ];
+  user: any;
+  constructor(private auth: AuthService) {
+    this.auth.getCurrentUser().subscribe((user) => {
+      this.user = user;
+    });
+  }
 
   ngOnInit() {
     this.isLoading = true;
-    this.quoteService
-      .getRandomQuote({ category: 'dev' })
-      .pipe(
-        finalize(() => {
-          this.isLoading = false;
-        })
-      )
-      .subscribe((quote: string) => {
-        this.quote = quote;
-      });
   }
+
+  ngAfterViewInit() {
+    const grid = document.querySelector('.grid');
+    console.log(grid);
+    const a = new Masonry(grid, {
+      // Opciones de Masonry
+      itemSelector: '.grid-item',
+      percentPosition: true,
+    });
+  }
+  year = new Date().getFullYear();
 }

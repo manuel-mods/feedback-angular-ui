@@ -1,0 +1,46 @@
+<div style="height: 100vh">
+  <div class="d-flex align-items-center justify-content-center h-100">
+    <div class="card mx-auto col-6">
+      <div class="card-body">
+        <h5 class="card-title">Nombre de usuario: {{ name }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Correo: {{ email }}</h6>
+        <p class="card-text mb-2">Descripción:</p>
+        <div class="mb-2">
+          <textarea [(ngModel)]="description" [maxLength]="150" class="form-control"></textarea>
+          <p class="text-muted">
+            <small>Caracteres restantes: {{ 150 - description.length }}</small>
+          </p>
+        </div>
+        <div class="mb-3">
+          <p>Puntuación:</p>
+          <div class="d-flex justify-content-start">
+            <i
+              class="fas fa-star"
+              *ngFor="let i of [1, 2, 3, 4, 5]"
+              [ngClass]="{ checked: i <= rating }"
+              (click)="rating = i"
+            ></i>
+          </div>
+        </div>
+        <div class="mb-3">
+          <p>Selecciona de 1 a 3 atributos:</p>
+          <div class="d-flex flex-column">
+            <div class="form-check" *ngFor="let tag of feedbackTags">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                (change)="toggleSelection(tag)"
+                [checked]="isSelected(tag)"
+              />
+              <label class="form-check-label">{{ tag }}</label>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center">
+          <button class="btn btn-primary" (click)="submitFeedback()">Enviar Feedback</button>
+        </div>
+      </div>
+    </div>
+    <ngx-spinner [fullScreen]="true" size="medium" type="square-jelly-box"> </ngx-spinner>
+  </div>
+</div>

@@ -1,10 +1,40 @@
-<div class="container-fluid">
-  <div class="jumbotron text-center">
-    <h1>
-      <img class="logo" src="assets/ngx-rocket-logo.png" alt="angular logo" />
-      <span translate>Hello world !</span>
-    </h1>
-    <app-loader [isLoading]="isLoading"></app-loader>
-    <q [hidden]="isLoading">{{ quote }}</q>
+<div class="container">
+  <h1>Hola, {{ user?.displayName }}</h1>
+  <button>Solicitar feedback</button>
+  <div class="row grid">
+    <div class="col-md-4 grid-item">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Feedbacks recibidos</h5>
+          <p class="card-text">{{ feedbacks.length }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 grid-item">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Últimos feedbacks</h5>
+          <div *ngFor="let feedback of feedbacks">
+            <h6>{{ feedback.serviceType }}</h6>
+            <p>{{ feedback.name }} - {{ feedback.description }}</p>
+            <p>Rating: {{ feedback.rating }}</p>
+            <p>Comentario: {{ feedback.comment }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 grid-item">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">feedbacks activos</h5>
+          <div *ngFor="let feedback of feedbacks">
+            <h6>{{ feedback.serviceType }}</h6>
+            <p>{{ feedback.name }} - {{ feedback.description }}</p>
+            <p>Rating: {{ feedback.rating }}</p>
+            <p>Comentario: {{ feedback.comment }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

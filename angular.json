@@ -110,6 +110,16 @@
           "options": {
             "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "feedbapp-ui:build:production",
+            "firebaseProject": "feedbapp-cl",
+            "firebaseHostingSite": "feedbapp-cl"
+          }
         }
       }
     }

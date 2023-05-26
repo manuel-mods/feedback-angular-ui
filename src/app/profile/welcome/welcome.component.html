@@ -1,0 +1,65 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Bienvenido!</h5>
+          <p>Antes de empezar a recibir feedback necesitas configurar tu perfil.</p>
+          <form [formGroup]="form">
+            <div class="form-floating mb-3">
+              <input type="email" class="form-control" id="floatingInput" />
+              <label for="floatingInput">Email address</label>
+            </div>
+            <div class="form-floating">
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                formControlName="email"
+                placeholder="name@example.com"
+              />
+              <label for="email">Correo</label>
+              <div *ngIf="form.get('email')?.invalid && form.get('email')?.touched" class="text-danger">
+                Por favor ingrese un correo válido
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="username">Nombre de usuario</label>
+              <input type="text" class="form-control" id="username" formControlName="username" />
+              <div *ngIf="form.get('username')?.invalid && form.get('username')?.touched" class="text-danger">
+                Por favor ingrese un nombre de usuario
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="fullName">Nombre Completo</label>
+              <input type="text" class="form-control" id="fullName" formControlName="fullName" />
+              <div *ngIf="form.get('fullName')?.invalid && form.get('fullName')?.touched" class="text-danger">
+                Por favor ingrese su nombre completo
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="phone">Teléfono</label>
+              <input type="tel" class="form-control" id="phone" formControlName="phone" />
+              <div *ngIf="form.get('phone')?.invalid && form.get('phone')?.touched" class="text-danger">
+                Por favor ingrese un número de teléfono válido
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="country">País</label>
+              <input type="text" class="form-control" id="country" formControlName="country" />
+              <div *ngIf="form.get('country')?.invalid && form.get('country')?.touched" class="text-danger">
+                Por favor ingrese su país
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Enviar</button>
+          </form>
+          <pre>
+                    <div *ngIf="auth.user | async as user">
+                    {{ user  | json}}
+                    </div>
+                </pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

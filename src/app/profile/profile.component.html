@@ -1,27 +1,22 @@
 <div class="container">
   <div class="row">
-    <div class="col-12">
+    <div class="col-md-8 col-12 h-90">
       <div class="card">
         <div
           class="header text-white"
           style="background-color: aqua; background-image: url(https://picsum.photos/600/200)"
         >
-          <h1 style="text-shadow: 5px solid black">Perfil de Usuario</h1>
+          <h1 style="text-shadow: 5px solid black"></h1>
         </div>
         <div class="user-info d-flex">
-          <img
-            src="https://picsum.photos/200"
-            class="rounded-circle mr-3"
-            alt="Perfil"
-            style="height: 200px; width: 200px; background-color: aqua"
-          />
+          <img src="https://picsum.photos/200" class="rounded-circle mr-3 user-img" alt="Perfil" style="" />
         </div>
         <div class="card-body">
-          <div class="row">
-            <div class="col-12">
+          <div class="row justify-content-between">
+            <div class="col">
               <h2 class="mb-0">Jose Peréz</h2>
-              <div class=""><span class="fi fi-cl"></span> Temuco, Chile</div>
-              <div class="">
+              <div class="mt-1"><span class="fi fi-cl"></span> Temuco, Chile</div>
+              <div class="mt-1">
                 <ul class="uns-list">
                   <li class="list-group-item">@nombreUsuario</li>
                   <li class="list-group-item">prueba@correo.cl</li>
@@ -31,40 +26,164 @@
                 </ul>
               </div>
             </div>
+            <div class="col-4 h-100">
+              <div class="d-flex flex-row-reverse mt-2" style="position: absolute; top: 8px; right: 16px">
+                <button class="btn btn-primary btn-sm mx-1" style="margin-right: 0 !important" (click)="openModal3()">
+                  Editar Perfil
+                </button>
+                <button type="button" class="btn btn-primary btn-sm mx-1" (click)="openModal()">
+                  Solicitar Feedback
+                </button>
+                <button type="button" class="btn btn-primary btn-sm mx-1" (click)="openModal2()">
+                  Historial de Feedback
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-
-    <div>
-      <div class="comments mt-3">
-        <h3>Feedbacks</h3>
-        <div class="row">
-          <ng-container *ngFor="let feedback of feedbacks">
-            <div class="col-4">
-              <div class="card">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col d-flex flex-column justify-content-center align-items-center">
-                      <img src="https://via.placeholder.com/200" class="card-img-top mr-3" alt="Profile Image" />
-                      <a href="#" class="btn btn-primary mt-2" style="width: 100px">Ver perfil</a>
-                    </div>
-                    <div class="col-8 d-flex flex-column justify-content-center align-items-center">
-                      <p class="card-text text-center fw-semibold mb-0">@nombredeusuario:</p>
-                      <p class="card-text text-center">El servicio de atención al cliente es excelente!</p>
-                      <span class="d-block fs-15">🌟🌟🌟🌟</span>
-                    </div>
-
-                    <div class="footer-date">
-                      <small>2/2/2023, 12:00 PM</small>
-                    </div>
-                  </div>
-                </div>
+    <div class="col-12 col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Mejores Atributos</h5>
+          <div class="row">
+            <div class="col-12">
+              <div *ngFor="let tag of feedbackTags" class="attr-tag">
+                {{ tag }}
               </div>
             </div>
-          </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Feedbacks</h5>
+          <div class="comments">
+            <div class="row">
+              <ng-container *ngFor="let feedback of feedbacks">
+                <div class="col-sm-12 col-md-4">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col d-flex flex-column justify-content-center align-items-center">
+                          <img src="https://via.placeholder.com/200" class="card-img-top mr-3" alt="Profile Image" />
+                          <a href="#" class="btn btn-primary mt-2 btn-sm" style="width: 100px">Ver perfil</a>
+                        </div>
+                        <div class="col-8 d-flex flex-column justify-content-center align-items-center">
+                          <p class="card-text text-center fw-semibold mb-0">@nombredeusuario:</p>
+                          <p class="card-text text-center">El servicio de atención al cliente es excelente!</p>
+                          <span class="d-block fs-15">🌟🌟🌟🌟</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="footer-date">2/2/2023, 12:00 PM</div>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+<!-- Modal content -->
+<ng-template #modalContent let-modal>
+  <ngx-spinner [fullScreen]="true" size="medium" type="square-jelly-box"> </ngx-spinner>
+  <div class="modal-header">
+    <h5 class="modal-title">Solicitar Feedback</h5>
+    <button type="button" class="btn-close" (click)="modal.close()"></button>
+  </div>
+  <div class="modal-body">
+    <form *ngIf="!urlDone">
+      <div class="form-group">
+        <label for="serviceType">Tipo de servicio</label>
+        <select class="form-control" id="serviceType">
+          <option>Venta</option>
+          <option>Asesoría</option>
+          <option>Servicio</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="description">Descripción</label>
+        <textarea class="form-control" id="description" rows="3"></textarea>
+      </div>
+    </form>
+    <ng-container *ngIf="urlDone">
+      <h3 class="text-center mb-4">Ya puedes compartir tu link para recibir feedback</h3>
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" [(ngModel)]="urlGenerate" readonly />
+        <div class="input-group-append">
+          <button class="btn btn-outline-primary" (click)="copyToClipboard()">
+            <i class="fas fa-copy"></i>
+          </button>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="generateLink()" *ngIf="!urlDone">Generar Link</button>
+    <button type="button" class="btn btn-primary" (click)="modal.close()" *ngIf="urlDone">Cerrar</button>
+  </div>
+</ng-template>
+
+<ng-template #modalContent2 let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Historial de Feedback</h5>
+    <button type="button" class="btn-close" (click)="modal.close()"></button>
+  </div>
+  <div class="modal-body">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Tipo</th>
+          <th>Estado</th>
+          <th>Herramientas</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let feedback of feedbacksTable">
+          <td>{{ feedback.id }}</td>
+          <td>{{ feedback.type }}</td>
+          <td>{{ feedback.status }}</td>
+          <td>
+            <button class="btn btn-danger btn-sm" (click)="deleteFeedback(feedback.id)">
+              <i class="fas fa-times"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="modal.close()">Cerrar</button>
+  </div>
+</ng-template>
+
+<ng-template #modalContent3 let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Historial de Feedback</h5>
+    <button type="button" class="btn-close" (click)="modal.close()"></button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="description">Nombre Completo</label>
+      <input type="text" class="form-control" />
+    </div>
+    <div class="form-group">
+      <label for="description">Nombre de usuario</label>
+      <input type="text" class="form-control" />
+    </div>
+    <div class="form-group">
+      <label for="description">Pais</label>
+      <input type="text" class="form-control" />
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="modal.close()">Cerrar</button>
+  </div>
+</ng-template>

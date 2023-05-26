@@ -1,7 +1,9 @@
 <header>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg">
     <div class="container">
-      <a class="navbar-brand" href="https://github.com/ngx-rocket" translate>APP_NAME</a>
+      <a class="navbar-brand" routerLink="/home" translate>
+        <img src="assets/feedbapp-logo.png" style="width: 200px" />
+      </a>
       <button
         class="navbar-toggler"
         type="button"
@@ -14,17 +16,27 @@
       </button>
       <div id="navbar-menu" class="collapse navbar-collapse float-xs-none" [ngbCollapse]="menuHidden">
         <div class="navbar-nav me-auto mb-2 mb-lg-0">
-          <a class="nav-item nav-link text-uppercase" routerLink="/home" routerLinkActive="active">
-            <i class="fas fa-home"></i>
+          <a class="nav-item nav-link" routerLink="/home" routerLinkActive="active">
             <span translate>Home</span>
           </a>
-          <a class="nav-item nav-link text-uppercase" routerLink="/about" routerLinkActive="active">
-            <i class="fas fa-question-circle"></i>
-            <span translate>About</span>
-          </a>
+          <!-- <a class="nav-item nav-link text-uppercase" routerLink="/profile" routerLinkActive="active">
+            <span translate>profiles</span>
+          </a> -->
         </div>
         <div class="navbar-nav ml-auto d-none">
           <app-language-selector [inNavbar]="true"></app-language-selector>
+        </div>
+        <div class="navbar-nav ml-auto d-flex">
+          <div *ngIf="user$ as user; else showLogin">
+            <a class="" (click)="logout()">Cerrar sesión</a>
+          </div>
+          <ng-template #showLogin>
+            <div>
+              <button class="btn btn-primary" (click)="login()">
+                Ingresar con Google <i class="fa-brands fa-google"></i>
+              </button>
+            </div>
+          </ng-template>
         </div>
       </div>
     </div>
